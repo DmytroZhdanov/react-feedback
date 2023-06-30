@@ -1,33 +1,26 @@
 import { Component } from 'react';
-import { OptionBtn, OptionsList } from './FeedbackOptions.styled';
+import { OptionsList } from './FeedbackOptions.styled';
 import PropTypes from 'prop-types';
-
+import { OptionItem } from 'components/OptionItem/OptionItem';
 
 export class FeedbackOptions extends Component {
   render() {
-    const { onLeaveFeedback } = this.props;
+    const { options, onLeaveFeedback } = this.props;
     return (
       <OptionsList>
-        <li>
-          <OptionBtn type="button" onClick={onLeaveFeedback} name="good">
-            Good
-          </OptionBtn>
-        </li>
-        <li>
-          <OptionBtn type="button" onClick={onLeaveFeedback} name="neutral">
-            Neutral
-          </OptionBtn>
-        </li>
-        <li>
-          <OptionBtn type="button" onClick={onLeaveFeedback} name="bad">
-            Bad
-          </OptionBtn>
-        </li>
+        {options.map(option => (
+          <OptionItem
+            key={option}
+            option={option}
+            onLeaveFeedback={onLeaveFeedback}
+          />
+        ))}
       </OptionsList>
     );
   }
 }
 
 FeedbackOptions.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   onLeaveFeedback: PropTypes.func.isRequired,
 };
